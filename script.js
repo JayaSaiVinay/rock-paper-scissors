@@ -36,7 +36,7 @@ function playGround(userChoice, computerChoice){
 
   // User Choice
 
-  userChoice = prompt('What is your choice?(rock or paper or scissors)');
+  userChoice = prompt('Rock or Paper or Scissor ?');
   userChoice = userChoice.toUpperCase();
 
   // Conditions
