@@ -15,7 +15,7 @@ header{
 
 .scoreboard{
   border: 3px solid white;
-  width: 150px;
+  width: fit-content;
   color: white; 
   margin: auto;
   margin-top: 40px;
@@ -29,29 +29,29 @@ header{
 }
 
 .scoreboard .label{
-  font-size: 25px;
+  font-size: 20px;
   background-color: rgb(121, 51, 51);
 }
 
 #player-label{
   position: absolute;
   top: 33px;
-  left: -75px;
+  left: -60px;
 }
 
 #computer-label{
   position: absolute;
   top: 33px;
-  right: -115px;
+  right: -90px;
 }
 
 #player-score{
   width: 40px;
-  margin-right: 25px;
+  margin-right: 20px;
 }
 #computer-score{
   width: 40px;
-  margin-left: 25px;
+  margin-left: 20px;
 }
 
 .result
