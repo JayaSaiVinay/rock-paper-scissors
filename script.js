@@ -1,123 +1,97 @@
-alert('To Play Rock-Paper-Scissor go to console!!\nShortcut for console: Control + Shift + J(For Windows) !!!')
-alert('This game has 5 rounds, one who scores more will win!')
+let playerScore = 0;
+let computerScore = 0;
 
-// Getting Choice from computer
+const playerScore_span = document.getElementById("player-score");
+const computerScore_span = document.getElementById("computer-score");
+const scoreboard_div = document.querySelector(".scoreboard");
+const result_p = document.querySelector(".result > p")
+const rock_div = document.getElementById("rock");
+const paper_div = document.getElementById("paper");
+const scissor_div = document.getElementById("scissor");
 
-function getComputerChoice(max){
-  return parseInt(Math.floor(Math.random() * max));
-}
+const weapons = ['Rock', 'Paper', 'Scissor'];
 
+// Computer Weapon
 
-// Function for single round of ROCK-PAPER-SCISSORS
-
-let userWinCount = 0;
-let computerWinCount = 0;
-let resultAnnouncement;
-let userChoice;
-let computerChoice;
-
-function playGround(userChoice, computerChoice){
-
-  // Computer Choice
-
-  let a = getComputerChoice(3);
-
-  if (a === 0)
-  {
-    computerChoice = 'Rock';
-  }
-  else if (a == 1){
-    computerChoice = 'Paper';
-  }
-  else 
-  {
-    computerChoice = 'Scissor';
-  }
-
-  // User Choice
-
-  userChoice = prompt('Rock or Paper or Scissor ?');
-  userChoice = userChoice.toUpperCase();
-
-  // Conditions
-
-  if (userChoice === 'ROCK' && computerChoice === 'Rock'){
-    userWinCount ++;
-    computerWinCount ++;
-    return resultAnnouncement = 'It is a tie! Both have chosen Rock';
-  }
-  else if (userChoice === 'ROCK' && computerChoice === 'Paper'){
-    computerWinCount ++;
-    return resultAnnouncement = 'You have lost! Paper beats Rock';
-  }
-  else if (userChoice === 'ROCK' && computerChoice === 'Scissor'){
-    userWinCount ++;
-    return resultAnnouncement = 'You have Won! Rock beats Scissor';
-  }
-  else if (userChoice === 'PAPER' && computerChoice === 'Rock'){
-    userWinCount ++;
-    return resultAnnouncement = 'You have Won! Paper beats Rock';
-  }
-  else if (userChoice === 'PAPER' && computerChoice === 'Paper'){
-    userWinCount ++;
-    computerWinCount ++;
-    return resultAnnouncement = 'It is a tie! Both have chosen Paper';
-  }
-  else if (userChoice === 'PAPER' && computerChoice === 'Scissor'){
-    computerWinCount ++;
-    return resultAnnouncement = 'You have lost! Scissor beats Paper';
-  }
-  else if (userChoice === 'SCISSOR' && computerChoice === 'Rock'){
-    computerWinCount ++;
-    return resultAnnouncement = 'You have lost! Rock beats Scissor';
-  }
-  else if (userChoice === 'SCISSOR' && computerChoice === 'Paper'){
-    userWinCount ++;
-    return resultAnnouncement = 'You have Won! Scissor beats Paper';
-  }
-  else if (userChoice === 'SCISSOR' && computerChoice === 'Scissor'){
-    computerWinCount ++;
-    userWinCount ++;
-    return resultAnnouncement = 'It is a tie! Both have chosen Scissor';
-  }
-  else{
-    computerWinCount ++;
-    userWinCount ++;
-    return resultAnnouncement = 'You have entered invalid word so it is a tie!';
-  }
-
-}
-
-// To repeat the playGround for five rounds
-
-function game()
+function getComputerWeapon()
 {
-  for (let i = 0; i < 5; i ++)
-  {
-    playGround(userChoice, computerChoice);
-    console.log(resultAnnouncement)
-  }
+  const randomNumber = Math.floor(Math.random() * 3);
+  return weapons[randomNumber];
+}
 
-  console.log(`Player Points: ${userWinCount}`)
-  console.log(`Computer Points: ${computerWinCount}`)
 
-  if(userWinCount > computerWinCount)
+
+// Player Weapon
+
+function win(playerWeapon, computerWeapon)
+{
+  playerScore++;
+  result_p.innerHTML = `${playerWeapon} beats ${computerWeapon}, You Won !!`; 
+  playerScore_span.innerHTML = playerScore;
+  computerScore_span.innerHTML = computerScore;
+}
+
+function lose(playerWeapon, computerWeapon)
+{
+  computerScore++;
+  result_p.innerHTML = `${computerWeapon} beats ${playerWeapon}, You Lost !!`;
+  playerScore_span.innerHTML = playerScore;
+  computerScore_span.innerHTML = computerScore;
+}
+
+function draw(playerWeapon, computerWeapon)
+{
+  result_p.innerHTML = `${computerWeapon} VS ${playerWeapon} is a TIE!!`;
+  playerScore_span.innerHTML = playerScore;
+  computerScore_span.innerHTML = computerScore;
+}
+
+function game(playerWeapon)
+{
+  const computerWeapon = getComputerWeapon();
+  switch (playerWeapon + computerWeapon)
   {
-    console.log('You have Won');
-  }
-  else if(userWinCount < computerWinCount)
-  {
-    console.log('You have Lost')
-  }
-  else
-  {
-    console.log('It is a tie')
+    case "RockScissor":
+    case "PaperRock":
+    case "ScissorPaper":
+      win(playerWeapon, computerWeapon);
+      break;
+    case "RockPaper":
+    case "PaperScissor":
+    case "ScissorRock":
+      lose(playerWeapon, computerWeapon);
+      break;
+    case "RockRock":
+    case "PaperPaper":
+    case "ScissorScissor":
+      draw(playerWeapon, computerWeapon);
+      break;
   }
 }
 
-game();
+function main()
+{
+  rock_div.addEventListener('click', function()
+  {
+    game('Rock');
+  });
 
-alert('To Play again refresh the page')
+  paper_div.addEventListener('click', function()
+  {
+    game('Paper');
+  });
+
+  scissor_div.addEventListener('click', function()
+  {
+    game('Scissor');
+  });
+}
+
+main();
+
+
+
+
 
 
 
