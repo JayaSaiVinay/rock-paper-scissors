@@ -8,6 +8,7 @@ const result_p = document.querySelector(".result > p")
 const rock_div = document.getElementById("rock");
 const paper_div = document.getElementById("paper");
 const scissor_div = document.getElementById("scissor");
+const final_result_h1 = document.querySelector(".final-result > h1")
 
 const weapons = ['Rock', 'Paper', 'Scissor'];
 
@@ -19,16 +20,16 @@ function getComputerWeapon()
   return weapons[randomNumber];
 }
 
-
-
-// Player Weapon
-
 function win(playerWeapon, computerWeapon)
 {
   playerScore++;
   result_p.innerHTML = `${playerWeapon} beats ${computerWeapon}, You Won !!`; 
   playerScore_span.innerHTML = playerScore;
   computerScore_span.innerHTML = computerScore;
+  if (playerScore === 5)
+  {
+    final_result_h1.innerHTML = `You have WON the game!!`;
+  }
 }
 
 function lose(playerWeapon, computerWeapon)
@@ -37,6 +38,10 @@ function lose(playerWeapon, computerWeapon)
   result_p.innerHTML = `${computerWeapon} beats ${playerWeapon}, You Lost !!`;
   playerScore_span.innerHTML = playerScore;
   computerScore_span.innerHTML = computerScore;
+  if (computerScore === 5)
+  {
+    final_result_h1.innerHTML = `You have LOST the game!!`;
+  }
 }
 
 function draw(playerWeapon, computerWeapon)
@@ -46,8 +51,20 @@ function draw(playerWeapon, computerWeapon)
   computerScore_span.innerHTML = computerScore;
 }
 
+function playAgain()
+{
+  alert('Refresh to play again')
+}
+
+// Game 
+
 function game(playerWeapon)
 {
+  if(playerScore === 5 || computerScore === 5)
+  {
+    return playAgain();
+  }
+
   const computerWeapon = getComputerWeapon();
   switch (playerWeapon + computerWeapon)
   {
@@ -67,7 +84,11 @@ function game(playerWeapon)
       draw(playerWeapon, computerWeapon);
       break;
   }
+  
+
+
 }
+// Getting Player Weapon
 
 function main()
 {
@@ -86,8 +107,8 @@ function main()
     game('Scissor');
   });
 }
-
 main();
+
 
 
 
